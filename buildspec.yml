@@ -1,0 +1,21 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 |
+        docker login --username AWS --password-stdin <ECR_URI>
+  build:
+    commands:
+      - echo Build Docker image
+      - docker build -t learning-platform-backend .
+      - docker tag learning-platform-backend:latest <ECR_URI>:latest
+  post_build:
+    commands:
+      - echo Push image to ECR
+      - docker push <ECR_URI>:latest
+
+artifacts:
+  files:
+    - '**/*'
