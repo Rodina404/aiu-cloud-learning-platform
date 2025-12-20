@@ -1,0 +1,5 @@
+sudo docker exec -it kafka /usr/bin/kafka-console-producer \
+  --bootstrap-server 10.0.1.61:9092 \
+  --topic document.uploaded
+>Test document upload
+# Press Enter to send

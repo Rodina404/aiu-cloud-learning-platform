@@ -1,0 +1,21 @@
+TOPICS=(
+document.uploaded
+document.processed
+notes.generated
+quiz.requested
+quiz.generated
+audio.transcription.requested
+audio.transcription.completed
+audio.generation.requested
+audio.generation.completed
+chat.message
+)
+
+for topic in "${TOPICS[@]}"; do
+  sudo docker exec -it kafka /usr/bin/kafka-topics \
+    --create \
+    --bootstrap-server 10.0.1.61:9092 \
+    --replication-factor 1 \
+    --partitions 3 \
+    --topic "$topic"
+done

@@ -1,0 +1,10 @@
+sudo docker run -d --name zookeeper \
+  --network kafka-net \
+  -p 2181:2181 \
+  -v /home/ec2-user/zookeeper-data:/data \
+  -e ZOO_MY_ID=1 \
+  -e ZOO_PORT=2181 \
+  -e ZOO_TICK_TIME=2000 \
+  -e ZOO_INIT_LIMIT=5 \
+  -e ZOO_SYNC_LIMIT=2 \
+  zookeeper:3.6.3

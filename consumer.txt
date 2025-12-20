@@ -1,0 +1,5 @@
+# Consume the message
+sudo docker exec -it kafka /usr/bin/kafka-console-consumer \
+  --bootstrap-server 10.0.1.61:9092 \
+  --topic document.uploaded \
+  --from-beginning
