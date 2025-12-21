@@ -1,18 +1,26 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - pip install -r requirements.txt
   pre_build:
     commands:
-      - aws ecr get-login-password --region us-east-1 |
-        docker login --username AWS --password-stdin 744699944198.dkr.ecr.us-east-1.amazonaws.com/tts-service-repository
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin <ECR_URI>
   build:
     commands:
-      - docker build -t tts-service .
-      - docker tag tts-service:latest 744699944198.dkr.ecr.us-east-1.amazonaws.com/tts-service-repository:latest
+      - echo Running unit tests...
+      - pytest tests/
+      - echo Building Docker image...
+      - docker build -t quiz-service .
+      - docker tag quiz-service:latest <ECR_URI>:latest
   post_build:
     commands:
-      - docker push 744699944198.dkr.ecr.us-east-1.amazonaws.com/tts-service-repository:latest
+      - echo Pushing Docker image to ECR...
+      - docker push <ECR_URI>:latest
 
 artifacts:
   files:
-    - imagedefinitions.json
+    - '**/*'

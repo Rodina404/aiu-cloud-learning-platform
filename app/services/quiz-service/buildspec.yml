@@ -1,16 +1,26 @@
 version: 0.2
 
 phases:
+  install:
+    commands:
+      - echo Installing dependencies...
+      - pip install -r requirements.txt
   pre_build:
     commands:
-      - aws ecr get-login-password --region us-east-1 |
-      - docker login --username AWS --password-stdin 744699944198.dkr.ecr.us-east-1.amazonaws.com/quiz-service
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 744699944198.dkr.ecr.us-east-1.amazonaws.com/quiz-service
+  build:
     commands:
+      - echo Running unit tests...
+      - pytest tests/
+      - echo Building Docker image...
       - docker build -t quiz-service .
       - docker tag quiz-service:latest 744699944198.dkr.ecr.us-east-1.amazonaws.com/quiz-service:latest
   post_build:
     commands:
+      - echo Pushing Docker image to ECR...
       - docker push 744699944198.dkr.ecr.us-east-1.amazonaws.com/quiz-service:latest
+
 artifacts:
   files:
-    - imagedefinitions.json
+    - '**/*'
