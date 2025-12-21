@@ -1,0 +1,6 @@
+[
+  {
+    "name": "chat-container",
+    "imageUri": "E744699944198.dkr.ecr.us-east-1.amazonaws.com/chat-service-repository:latest"
+  }
+]

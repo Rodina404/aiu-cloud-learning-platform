@@ -1,0 +1,17 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region us-east-1 |
+        docker login --username AWS --password-stdin E744699944198.dkr.ecr.us-east-1.amazonaws.com/quiz-service
+  build:
+    commands:
+      - docker build -t quiz-service .
+      - docker tag quiz-service:latest E744699944198.dkr.ecr.us-east-1.amazonaws.com/quiz-service:latest
+  post_build:
+    commands:
+      - docker push E744699944198.dkr.ecr.us-east-1.amazonaws.com/quiz-service:latest
+artifacts:
+  files:
+    - imagedefinitions.json

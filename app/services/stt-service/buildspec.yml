@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - aws ecr get-login-password --region us-east-1 |
+        docker login --username AWS --password-stdin E744699944198.dkr.ecr.us-east-1.amazonaws.com/stt-service-repository
+  build:
+    commands:
+      - docker build -t stt-service .
+      - docker tag stt-service:latest E744699944198.dkr.ecr.us-east-1.amazonaws.com/stt-service-repository:latest
+  post_build:
+    commands:
+      - docker push E744699944198.dkr.ecr.us-east-1.amazonaws.com/stt-service-repository:latest
+
+artifacts:
+  files:
+    - imagedefinitions.json
