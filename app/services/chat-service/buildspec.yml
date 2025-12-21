@@ -4,14 +4,14 @@ phases:
   pre_build:
     commands:
       - aws ecr get-login-password --region us-east-1 |
-        docker login --username AWS --password-stdin E744699944198.dkr.ecr.us-east-1.amazonaws.com/chat-service-repository
+        docker login --username AWS --password-stdin 744699944198.dkr.ecr.us-east-1.amazonaws.com/chat-service-repository
   build:
     commands:
       - docker build -t chat-service .
-      - docker tag chat-service:latest E744699944198.dkr.ecr.us-east-1.amazonaws.com/chat-service-repository:latest
+      - docker tag chat-service:latest 744699944198.dkr.ecr.us-east-1.amazonaws.com/chat-service-repository:latest
   post_build:
     commands:
-      - docker push E744699944198.dkr.ecr.us-east-1.amazonaws.com/chat-service-repository:latest
+      - docker push 744699944198.dkr.ecr.us-east-1.amazonaws.com/chat-service-repository:latest
 
 artifacts:
   files:

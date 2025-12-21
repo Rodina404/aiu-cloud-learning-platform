@@ -4,14 +4,14 @@ phases:
   pre_build:
     commands:
       - aws ecr get-login-password --region us-east-1 |
-        docker login --username AWS --password-stdin E744699944198.dkr.ecr.us-east-1.amazonaws.com/tts-service-repository
+        docker login --username AWS --password-stdin 744699944198.dkr.ecr.us-east-1.amazonaws.com/tts-service-repository
   build:
     commands:
       - docker build -t tts-service .
-      - docker tag tts-service:latest E744699944198.dkr.ecr.us-east-1.amazonaws.com/tts-service-repository:latest
+      - docker tag tts-service:latest 744699944198.dkr.ecr.us-east-1.amazonaws.com/tts-service-repository:latest
   post_build:
     commands:
-      - docker push E744699944198.dkr.ecr.us-east-1.amazonaws.com/tts-service-repository:latest
+      - docker push 744699944198.dkr.ecr.us-east-1.amazonaws.com/tts-service-repository:latest
 
 artifacts:
   files:
