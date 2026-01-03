@@ -1,0 +1,6 @@
+[
+  {
+    "name": "quiz-container",
+    "imageUri": "<744699944198.dkr.ecr.us-east-1.amazonaws.com/quiz-service>:latest"
+  }
+]
